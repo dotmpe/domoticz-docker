@@ -27,16 +27,16 @@ The basic command is this:
 
 Explantion
 
-* sudo docker run -d MyDomoticz : the basic run command
-* --device=/dev/ttyUSB0 means we expose a device we need to the container.
+* `sudo docker run -d MyDomoticz` : the basic run command
+* `--device=/dev/ttyUSB0` means we expose a device we need to the container.
 ** the old way to do this was to use -priviliged (which is deprecated and will become --priviliged), but this is a better option
-** when using priviliged, use something like: sudo docker run -privileged -v /dev/bus/usb:/dev/bus/usb 
+** when using priviliged, use something like: sudo docker run `-privileged -v /dev/bus/usb:/dev/bus/usb` 
 ** as you see you might need to play with the device name. ttyUSB0, /dev/bus/usb, /dev/bus/usb/00x/00y .. try using lsusb to find out your device
-* -v /SOMEPATH/domoticz-docker/backups:/root/domoticz/backups mounts the 'backups' directory to the created volume. 
+* `-v /SOMEPATH/domoticz-docker/backups:/root/domoticz/backups` mounts the 'backups' directory to the created volume. 
 ** you have your backups in a save place: keep them with your dockerfile in a backup-device and you're all set to 'reinstall'
-* -p 8084:8080 means that we expose the 8080 port to local 8084
+* `-p 8084:8080` means that we expose the 8080 port to local 8084
 ** domoticz (and our docker install) run on port 8080, but if you have anything running on your machine, this could be an issue
-** if you want to access using 8080, just use -p 8080:8080 
+** if you want to access using 8080, just use `-p 8080:8080` 
 
 
 Browsing
