@@ -1,12 +1,12 @@
 #
-# Domoticz Dockerfile
+# Dockerfile for Domoticz
 #
-# https://github.com/lbtm/domoticz-docker
+# Based on version by LBTM
 #
+# Base image.
+FROM ubuntu
 
-# Pull base image.
-FROM debian
-MAINTAINER LBTM
+MAINTAINER Nanne Huiges
 
 # Install Domoticz from sources.
 RUN \
@@ -19,18 +19,15 @@ WORKDIR /root/
 
 # Getting the source code
 RUN \
-  svn checkout svn://svn.code.sf.net/p/domoticz/code/domoticz && \
+  svn checkout svn://svn.code.sf.net/p/domoticz/code/trunk domoticz && \
   cd domoticz && cmake CMakeLists.txt && \
   make
 
-# DAEMON path
-RUN sed -i s'/DAEMON=\/home\/pi\/domoticz\/domoticz/DAEMON=\/root\/domoticz\/domoticz/' domoticz/domoticz.sh
+# cp database (if present, otherwise gives info message)
+ADD domoticz.db /root/domoticz/domoticz.db
 
-# Init Unix startup script
-RUN \
-  cp domoticz/domoticz.sh /etc/init.d/domoticz && \
-  chmod +x /etc/init.d/domoticz && \
-  update-rc.d domoticz defaults
+# mountable backup dir
+VOLUME /root/domoticz/backup
 
 # Clean up APT when done.
 RUN apt-get clean
@@ -38,4 +35,5 @@ RUN apt-get clean
 # Expose port.
 EXPOSE 8080
 
+#CMD ["service domoticz start"]]
 CMD ["/root/domoticz/domoticz", "-www 8080"]
