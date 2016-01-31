@@ -2,8 +2,8 @@ domoticz-docker
 ===============
 
 Dockerfile for domoticz. 
-Starts a container that can be 'seeded' with an available (backup) database, if one is in the context directory.
-Opens a volume for the backups directory, so you can easily retreive any database backups.
+Starts a container that can be 'seeded' with an available (backup) database, if there is one in the context directory.
+Opens a volume for the backups directory, so you can easily retrieve any database backups.
 
 Requirements
 ===
