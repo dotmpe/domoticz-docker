@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-domain=$(hostname)
+domain=$(hostname -s)
 ./build.sh
 docker rm -f $domain-domoticz 2>/dev/null 1>/dev/null \
   && echo "Removed current container $domain-domoticz" \
